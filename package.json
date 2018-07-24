@@ -1,6 +1,6 @@
 {
   "name": "@dendra-science/worker-tasks-agg",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Worker tasks for performing data aggregate calculations.",
   "license": "BSD-2-Clause-FreeBSD",
   "author": "J. Scott Smith <scott@newleafsolutionsinc.com>",

@@ -51,8 +51,8 @@ const SPEC_DEFAULTS = {
   }, '<(sn)n?s?:n>');
 
   expr.registerFunction('value', value => {
-    return spec.big_math ? math.bignumber(value) : value;
-  }, '<n:(no)>');
+    return spec.big_math && value !== null ? math.bignumber(value) : value;
+  }, '<(nl):(no)>');
 
   let columns = [];
   let points = [];
