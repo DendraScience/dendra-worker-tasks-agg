@@ -141,7 +141,7 @@ function optionsForRollup(rollup, { big_math: big }) {
 
 async function rollupDatapoints(req, ctx) {
   // TODO: Add more logging
-  // const {logger} = ctx
+  // const { logger } = ctx
   const spec = Object.assign({}, SPEC_DEFAULTS, req.spec);
 
   /*

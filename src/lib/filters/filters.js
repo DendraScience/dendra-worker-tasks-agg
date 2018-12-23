@@ -2,7 +2,7 @@
  * Pond filters.
  */
 
-const {filter} = require('pondjs')
+const { filter } = require('pondjs')
 
 module.exports = {
   ignoreMissing: filter.ignoreMissing,

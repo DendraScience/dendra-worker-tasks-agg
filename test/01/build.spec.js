@@ -16,12 +16,10 @@ describe('build tasks', function () {
       sources: [
         {
           description: 'Build aggregates based on a method',
-          error_subject: 'dendra.aggregateBuild.v1.err',
           queue_group: 'dendra.aggregateBuild.v1',
           sub_options: {
             ack_wait: 3600000,
-            durable_name: '5B287EF4',
-            max_in_flight: 1
+            durable_name: '20181223'
           },
           sub_to_subject: 'dendra.aggregateBuild.v1.req'
         }
@@ -58,7 +56,7 @@ describe('build tasks', function () {
               args: ['biased'],
               field: 'v',
               filter: 'zeroMissing',
-              func: 'std',
+              func: 'std'
             },
             {
               alias: 'v_count',
@@ -132,6 +130,7 @@ describe('build tasks', function () {
     model.scratch = {}
 
     return machine.clear().start().then(success => {
+      /* eslint-disable no-unused-expressions */
       expect(success).to.be.true
 
       // Verify task state

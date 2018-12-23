@@ -9,7 +9,7 @@ Dendra Worker tasks for performing data aggregate calculations.
 
 2. Clone this repo.
 
-3. Make this project directory the current directory, i.e. `cd dendra-worker-tasks-dpe`.
+3. Make this project directory the current directory, i.e. `cd dendra-worker-tasks-agg`.
 
 4. Install modules via `npm install`.
 

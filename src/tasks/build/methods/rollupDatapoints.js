@@ -6,10 +6,10 @@ const jsonata = require('jsonata')
 const math = require('../../../lib/math')
 const moment = require('moment')
 const pick = require('lodash/pick')
-const {aggregators, bigAggregators} = require('../../../lib/aggregators')
-const {filters, bigFilters} = require('../../../lib/filters')
-const {duration, timeSeries, window} = require('pondjs')
-const {MomentEditor} = require('@dendra-science/utils-moment')
+const { aggregators, bigAggregators } = require('../../../lib/aggregators')
+const { filters, bigFilters } = require('../../../lib/filters')
+const { duration, timeSeries, window } = require('pondjs')
+const { MomentEditor } = require('@dendra-science/utils-moment')
 
 const QUERY_DEFAULTS = {
   time_local: true
@@ -25,7 +25,7 @@ const SPEC_DEFAULTS = {
 /**
  * Fetch datapoints, transform and shift along the way.
  */
-async function findAndTransform (spec, {datapointsService, logger}) {
+async function findAndTransform (spec, { datapointsService, logger }) {
   /*
     Detect editor format (relative to now) or assume absolute time.
    */
@@ -73,7 +73,7 @@ async function findAndTransform (spec, {datapointsService, logger}) {
       }
     })
 
-    logger.info('Find and transform', {query})
+    logger.info('Find and transform', { query })
 
     // TODO: Send auth_info.jwt in header, see https://docs.feathersjs.com/api/client/rest.html#paramsheaders
     const res = await datapointsService.find({
@@ -102,8 +102,8 @@ async function findAndTransform (spec, {datapointsService, logger}) {
   }
 }
 
-function optionsForRollup (rollup, {big_math: big}) {
-  const aggregation = rollup.aggregations.reduce((agg, {alias, args, field, filter, func}) => {
+function optionsForRollup (rollup, { big_math: big }) {
+  const aggregation = rollup.aggregations.reduce((agg, { alias, args, field, filter, func }) => {
     if (typeof func !== 'string') throw new Error('Invalid aggregation function')
     if (typeof field !== 'string') throw new Error('Invalid aggregation field')
 
@@ -140,7 +140,7 @@ function optionsForRollup (rollup, {big_math: big}) {
 
 async function rollupDatapoints (req, ctx) {
   // TODO: Add more logging
-  // const {logger} = ctx
+  // const { logger } = ctx
   const spec = Object.assign({}, SPEC_DEFAULTS, req.spec)
 
   /*

@@ -9,7 +9,7 @@ module.exports = {
       (m.versionTs > m.stanTs)
   },
 
-  execute (m, {logger}) {
+  execute (m, { logger }) {
     logger.info('NATS Streaming closing')
 
     m.private.stan.close()

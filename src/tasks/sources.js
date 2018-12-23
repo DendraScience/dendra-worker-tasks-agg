@@ -29,11 +29,11 @@ module.exports = {
     }, {})
   },
 
-  assign (m, res, {logger}) {
+  assign (m, res, { logger }) {
     m.sourceKeys = Object.keys(res)
     m.sources = res
     m.sourcesTs = m.versionTs
 
-    logger.info('Sources ready', {sourceKeys: m.sourceKeys})
+    logger.info('Sources ready', { sourceKeys: m.sourceKeys })
   }
 }

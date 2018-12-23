@@ -10,7 +10,7 @@ module.exports = {
 
   execute (m) { return true },
 
-  assign (m, res, {logger}) {
+  assign (m, res, { logger }) {
     if (m.private.subscriptions) m.private.subscriptions.forEach(sub => sub.removeAllListeners())
     m.private.stan.removeAllListeners()
 

@@ -12,7 +12,6 @@ tm.configure({
 app.logger = console
 
 const AGGREGATE_JSON_API_URL = 'http://localhost:3036'
-// const AGGREGATE_JSON_API_URL = 'http://localhost:8080/_services/json/aggregate/api/v1'
 
 const WEB_API_URL = 'http://api.dendra.science/v1'
 
@@ -30,7 +29,6 @@ app.set('clients', {
     client: 'test-agg-{key}',
     cluster: 'test-cluster',
     opts: {
-      maxPubAcksInflight: 3,
       uri: 'http://localhost:4222'
     }
   }

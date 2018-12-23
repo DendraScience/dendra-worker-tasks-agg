@@ -34,20 +34,19 @@ function handleMessage(msg) {
     // DEBUG: Memory usage
     // heap1 = process.memoryUsage().heapUsed
 
-    processItem({ data, dataObj, msgSeq }, this).then(() => {
-      msg.ack();
-    }).catch(err => {
+    processItem({ data, dataObj, msgSeq }, this).then(() => msg.ack()).catch(err => {
       logger.error('Message processing error', { msgSeq, subSubject, err, dataObj });
-      // DEBUG: Memory usage
-      // }).finally(() => {
-      //   global.gc(true)
-
-      //   heap2 = process.memoryUsage().heapUsed
-
-      //   console.log('HEAP1', heap1)
-      //   console.log('HEAP2', heap2)
-      //   console.log('HEAPD', heap2 - heap1)
     });
+    // DEBUG: Memory usage
+    // }).finally(() => {
+    //   global.gc(true)
+
+    //   heap2 = process.memoryUsage().heapUsed
+
+    //   console.log('HEAP1', heap1)
+    //   console.log('HEAP2', heap2)
+    //   console.log('HEAPD', heap2 - heap1)
+    // })
   } catch (err) {
     logger.error('Message error', { msgSeq, subSubject, err });
   }
@@ -67,7 +66,6 @@ module.exports = {
     m.sourceKeys.forEach(sourceKey => {
       const source = m.sources[sourceKey];
       const {
-        error_subject: errorSubject,
         queue_group: queueGroup,
         sub_options: subOptions,
         sub_to_subject: subSubject
@@ -78,17 +76,18 @@ module.exports = {
 
         opts.setManualAckMode(true);
         opts.setStartAtTimeDelta(0);
+        opts.setMaxInFlight(1);
 
-        if (typeof subOptions.ack_wait === 'number') opts.setAckWait(subOptions.ack_wait);
-        if (typeof subOptions.durable_name === 'string') opts.setDurableName(subOptions.durable_name);
-        if (typeof subOptions.max_in_flight === 'number') opts.setMaxInFlight(subOptions.max_in_flight);
+        if (subOptions) {
+          if (typeof subOptions.ack_wait === 'number') opts.setAckWait(subOptions.ack_wait);
+          if (typeof subOptions.durable_name === 'string') opts.setDurableName(subOptions.durable_name);
+        }
 
         const sub = typeof queueGroup === 'string' ? stan.subscribe(subSubject, queueGroup, opts) : stan.subscribe(subSubject, opts);
 
         sub.on('message', handleMessage.bind({
           datapointsService,
           documentService,
-          errorSubject,
           logger,
           m,
           stan,
