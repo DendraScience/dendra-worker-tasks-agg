@@ -3,7 +3,7 @@
  */
 
 describe('build tasks', function () {
-  this.timeout(120000)
+  this.timeout(60000)
 
   const now = new Date()
   const model = {
@@ -76,6 +76,20 @@ describe('build tasks', function () {
     }
   }
 
+  const documentId = {
+    rollup: 'rollup-datapoints-HASH1-HASH2-HASH3'
+  }
+  const documentService = main.app.get('connections').aggregateStore.app.service('/documents')
+
+  const removeDocument = async (id) => {
+    try {
+      await documentService.remove(id)
+    } catch (_) {}
+  }
+  const cleanup = async () => {
+    await removeDocument(documentId.rollup)
+  }
+
   Object.defineProperty(model, '$app', {
     enumerable: false,
     configurable: false,
@@ -98,8 +112,14 @@ describe('build tasks', function () {
   let tasks
   let machine
 
-  after(function () {
-    return Promise.all([
+  before(async function () {
+    return cleanup()
+  })
+
+  after(async function () {
+    await cleanup()
+
+    await Promise.all([
       model.private.stan ? new Promise((resolve, reject) => {
         model.private.stan.removeAllListeners()
         model.private.stan.once('close', resolve)
@@ -110,7 +130,7 @@ describe('build tasks', function () {
   })
 
   it('should import', function () {
-    tasks = require('../../dist').build
+    tasks = require('../../../dist').build
 
     expect(tasks).to.have.property('sources')
   })
@@ -130,7 +150,7 @@ describe('build tasks', function () {
     model.scratch = {}
 
     return machine.clear().start().then(success => {
-      /* eslint-disable no-unused-expressions */
+      /* eslint-disable-next-line no-unused-expressions */
       expect(success).to.be.true
 
       // Verify task state
@@ -154,7 +174,14 @@ describe('build tasks', function () {
     })
   })
 
-  it('should wait for 60 seconds', function () {
-    return new Promise(resolve => setTimeout(resolve, 60000))
+  it('should wait for 20 seconds', function () {
+    return new Promise(resolve => setTimeout(resolve, 20000))
+  })
+
+  it('should get aggregate document', function () {
+    return documentService.get(documentId.rollup).then(doc => {
+      expect(doc).to.have.nested.property('content.result.data.0.t', '2017-01-01T00:00:00.000Z')
+      expect(doc).to.have.nested.property('content.result.data.0.v_count', 4464)
+    })
   })
 })

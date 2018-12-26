@@ -29,7 +29,7 @@ function handleMessage(msg) {
 
   try {
     const data = msg.getData();
-    const dataObj = JSON.parse(msg.getData());
+    const dataObj = JSON.parse(data);
 
     // DEBUG: Memory usage
     // heap1 = process.memoryUsage().heapUsed
