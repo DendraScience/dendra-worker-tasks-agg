@@ -5,7 +5,7 @@ Dendra Worker tasks for performing data aggregate calculations.
 
 ## Instructions
 
-1. Be sure you have Node version 8.11.3. If you’re using nvm, you may need to `nvm use 8.11.3`.
+1. Be sure you have Node version 10.15.1. If you’re using nvm, you may need to `nvm use 10.15.1`.
 
 2. Clone this repo.
 

@@ -60,7 +60,7 @@ module.exports = {
 
   execute (m, { logger }) {
     const { stan } = m.private
-    const datapointsService = m.$app.get('connections').web.app.service('/datapoints')
+    const datapointService = m.$app.get('connections').web.app.service('/datapoints')
     const documentService = m.$app.get('connections').aggregateStore.app.service('/documents')
     const subs = []
 
@@ -87,7 +87,7 @@ module.exports = {
         const sub = (typeof queueGroup === 'string') ? stan.subscribe(subSubject, queueGroup, opts) : stan.subscribe(subSubject, opts)
 
         sub.on('message', handleMessage.bind({
-          datapointsService,
+          datapointService,
           documentService,
           logger,
           m,

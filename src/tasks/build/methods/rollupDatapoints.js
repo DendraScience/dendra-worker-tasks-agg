@@ -25,7 +25,7 @@ const SPEC_DEFAULTS = {
 /**
  * Fetch datapoints, transform and shift along the way.
  */
-async function findAndTransform (spec, { datapointsService, logger }) {
+async function findAndTransform (spec, { datapointService, logger }) {
   /*
     Detect editor format (relative to now) or assume absolute time.
    */
@@ -76,7 +76,7 @@ async function findAndTransform (spec, { datapointsService, logger }) {
     logger.info('Find and transform', { query })
 
     // TODO: Send auth_info.jwt in header, see https://docs.feathersjs.com/api/client/rest.html#paramsheaders
-    const res = await datapointsService.find({
+    const res = await datapointService.find({
       query
     })
 

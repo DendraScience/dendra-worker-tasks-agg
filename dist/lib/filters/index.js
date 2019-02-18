@@ -1,9 +1,8 @@
-'use strict';
+"use strict";
 
 /**
  * Pond filters.
  */
-
 module.exports = {
   bigFilters: require('./bigFilters'),
   filters: require('./filters')

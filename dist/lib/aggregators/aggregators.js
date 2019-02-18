@@ -1,9 +1,8 @@
-'use strict';
+"use strict";
 
 /**
  * Pond aggregators.
  */
-
 const pond = require('pondjs');
 
 module.exports = {

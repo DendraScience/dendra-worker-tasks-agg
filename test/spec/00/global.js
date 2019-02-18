@@ -1,6 +1,6 @@
 const chai = require('chai')
-const feathers = require('feathers')
-const restClient = require('feathers-rest/client')
+const feathers = require('@feathersjs/feathers')
+const restClient = require('@feathersjs/rest-client')
 const request = require('request')
 const app = feathers()
 

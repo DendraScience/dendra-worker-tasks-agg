@@ -1,12 +1,15 @@
-'use strict';
+"use strict";
 
 /**
  * Pond filters.
  */
-
 const _ = require('lodash');
+
 const math = require('../math');
-const { filter } = require('pondjs');
+
+const {
+  filter
+} = require('pondjs');
 
 function isValid(v) {
   return !(_.isUndefined(v) || v.isNaN() || _.isNull(v));

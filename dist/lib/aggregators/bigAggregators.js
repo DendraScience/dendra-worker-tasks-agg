@@ -1,18 +1,20 @@
-'use strict';
+"use strict";
 
 /**
  * Pond aggregators.
  */
-
 const math = require('../math');
+
 const pond = require('pondjs');
 
 function avg(clean = pond.filter.ignoreMissing) {
   return values => {
     const cleanValues = clean(values);
+
     if (!cleanValues) {
       return null;
     }
+
     return math.mean(cleanValues);
   };
 }
@@ -20,9 +22,11 @@ function avg(clean = pond.filter.ignoreMissing) {
 function difference(clean = pond.filter.ignoreMissing) {
   return values => {
     const cleanValues = clean(values);
+
     if (!cleanValues) {
       return null;
     }
+
     return math.subtract(math.max(clean), math.min(cleanValues));
   };
 }
@@ -30,9 +34,11 @@ function difference(clean = pond.filter.ignoreMissing) {
 function keep(clean = pond.filter.ignoreMissing) {
   return values => {
     const cleanValues = clean(values);
+
     if (!cleanValues) {
       return null;
     }
+
     const result = pond.first()(cleanValues);
     cleanValues.forEach(v => {
       if (math.unequal(v, result)) {
@@ -46,10 +52,13 @@ function keep(clean = pond.filter.ignoreMissing) {
 function max(clean = pond.filter.ignoreMissing) {
   return values => {
     const cleanValues = clean(values);
+
     if (!cleanValues) {
       return null;
     }
+
     const result = math.max(cleanValues);
+
     if (result.isFinite()) {
       return result;
     }
@@ -59,9 +68,11 @@ function max(clean = pond.filter.ignoreMissing) {
 function median(clean = pond.filter.ignoreMissing) {
   return values => {
     const cleanValues = clean(values);
+
     if (!cleanValues) {
       return null;
     }
+
     return math.median(cleanValues);
   };
 }
@@ -69,10 +80,13 @@ function median(clean = pond.filter.ignoreMissing) {
 function min(clean = pond.filter.ignoreMissing) {
   return values => {
     const cleanValues = clean(values);
+
     if (!cleanValues) {
       return null;
     }
+
     const result = math.min(cleanValues);
+
     if (result.isFinite()) {
       return result;
     }
@@ -82,9 +96,11 @@ function min(clean = pond.filter.ignoreMissing) {
 function std(normalization = 'unbiased', clean = pond.filter.ignoreMissing) {
   return values => {
     const cleanValues = clean(values);
+
     if (!cleanValues) {
       return null;
     }
+
     return math.std(cleanValues, normalization);
   };
 }
@@ -92,9 +108,11 @@ function std(normalization = 'unbiased', clean = pond.filter.ignoreMissing) {
 function stdev(clean = pond.filter.ignoreMissing) {
   return values => {
     const cleanValues = clean(values);
+
     if (!cleanValues) {
       return null;
     }
+
     return math.std(cleanValues, 'uncorrected');
   };
 }
@@ -102,9 +120,11 @@ function stdev(clean = pond.filter.ignoreMissing) {
 function sum(clean = pond.filter.ignoreMissing) {
   return values => {
     const cleanValues = clean(values);
+
     if (!cleanValues) {
       return null;
     }
+
     return math.sum(cleanValues);
   };
 }

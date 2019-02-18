@@ -3,7 +3,6 @@
 /**
  * Init version timestamp in model.
  */
-
 module.exports = {
   clear(m) {
     m.versionTs = m.state.created_at.getTime();
@@ -11,7 +10,9 @@ module.exports = {
 
   guard(m) {
     return false;
-  }, // Never run
+  },
 
+  // Never run
   execute() {}
+
 };
